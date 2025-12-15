@@ -1,0 +1,169 @@
+/*
+ * ER/Studio Data Architect SQL Code Generation
+ * Project :      Logical_Midterm.DM1
+ *
+ * Date Created : Thursday, November 27, 2025 16:48:41
+ * Target DBMS : Databricks
+ */
+
+/* 
+ * TABLE: Dim_City 
+ */
+
+CREATE TABLE Dim_City
+(
+    City_Key     int         NOT NULL,
+    City_Name    string,
+    CONSTRAINT PK9 PRIMARY KEY (City_Key) 
+)
+;
+
+
+/* 
+ * TABLE: Dim_Date 
+ */
+
+CREATE TABLE Dim_Date
+(
+    Date_Key     int       NOT NULL,
+    Full_Date    date,
+    Day          int,
+    Month        int,
+    Year         int,
+    Quarter      int,
+    CONSTRAINT PK14 PRIMARY KEY (Date_Key) 
+)
+;
+
+
+/* 
+ * TABLE: Dim_Facility_Type 
+ */
+
+CREATE TABLE Dim_Facility_Type
+(
+    Facility_Type_Key    int         NOT NULL,
+    Facility_Type        string,
+    CONSTRAINT PK15 PRIMARY KEY (Facility_Type_Key) 
+)
+;
+
+
+/* 
+ * TABLE: Dim_Restaurant 
+ */
+
+CREATE TABLE Dim_Restaurant
+(
+    Restaurant_Key     int         NOT NULL,
+    Address            string,
+    Zip_Code           string,
+    Restaurant_Name    string,
+    CONSTRAINT PK7 PRIMARY KEY (Restaurant_Key) 
+)
+;
+
+
+/* 
+ * TABLE: Dim_Result 
+ */
+
+CREATE TABLE Dim_Result
+(
+    Inspection_Result_Key    int         NOT NULL,
+    Result_Name              string,
+    Derived_Score            int,
+    CONSTRAINT PK12 PRIMARY KEY (Inspection_Result_Key) 
+)
+;
+
+
+/* 
+ * TABLE: Dim_Type 
+ */
+
+CREATE TABLE Dim_Type
+(
+    Inspection_Type_Key    int         NOT NULL,
+    Inspection_Type        string,
+    CONSTRAINT PK13 PRIMARY KEY (Inspection_Type_Key) 
+)
+;
+
+
+/* 
+ * TABLE: Dim_Violation 
+ */
+
+CREATE TABLE Dim_Violation
+(
+    Violation_Key            int         NOT NULL,
+    Violation_Code           string,
+    Violation_Description    string,
+    CONSTRAINT PK11 PRIMARY KEY (Violation_Key) 
+)
+;
+
+
+/* 
+ * TABLE: Fact_Food_Inspection 
+ */
+
+CREATE TABLE Fact_Food_Inspection
+(
+    Inspection_Key           int         NOT NULL,
+    Date_Key                 int         NOT NULL,
+    Violation_Key            int         NOT NULL,
+    City_Key                 int         NOT NULL,
+    Inspection_Type_Key      int         NOT NULL,
+    Inspection_Result_Key    int         NOT NULL,
+    Restaurant_Key           int         NOT NULL,
+    Facility_Type_Key        int         NOT NULL,
+    Derived_Score            int,
+    Record_Source            string,
+    Risk                     string,
+    CONSTRAINT PK1 PRIMARY KEY (Inspection_Key, Date_Key, Violation_Key, City_Key, Inspection_Type_Key, Inspection_Result_Key, Restaurant_Key, Facility_Type_Key) 
+)
+;
+
+
+/* 
+ * TABLE: Fact_Food_Inspection 
+ */
+
+ALTER TABLE Fact_Food_Inspection ADD CONSTRAINT RefDim_Date4 
+    FOREIGN KEY (Date_Key)
+    REFERENCES Dim_Date
+;
+
+ALTER TABLE Fact_Food_Inspection ADD CONSTRAINT RefDim_Violation7 
+    FOREIGN KEY (Violation_Key)
+    REFERENCES Dim_Violation
+;
+
+ALTER TABLE Fact_Food_Inspection ADD CONSTRAINT RefDim_City8 
+    FOREIGN KEY (City_Key)
+    REFERENCES Dim_City
+;
+
+ALTER TABLE Fact_Food_Inspection ADD CONSTRAINT RefDim_Type9 
+    FOREIGN KEY (Inspection_Type_Key)
+    REFERENCES Dim_Type
+;
+
+ALTER TABLE Fact_Food_Inspection ADD CONSTRAINT RefDim_Result10 
+    FOREIGN KEY (Inspection_Result_Key)
+    REFERENCES Dim_Result
+;
+
+ALTER TABLE Fact_Food_Inspection ADD CONSTRAINT RefDim_Restaurant11 
+    FOREIGN KEY (Restaurant_Key)
+    REFERENCES Dim_Restaurant
+;
+
+ALTER TABLE Fact_Food_Inspection ADD CONSTRAINT RefDim_Facility_Type13 
+    FOREIGN KEY (Facility_Type_Key)
+    REFERENCES Dim_Facility_Type
+;
+
+
