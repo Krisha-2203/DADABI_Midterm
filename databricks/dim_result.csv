@@ -1,0 +1,7 @@
+result_name,inspection_result_key,derived_score
+Not Ready,0,60
+Pass w/ Conditions,1,80
+Fail,2,70
+Out of Business,3,60
+No Entry,4,60
+Pass,5,90

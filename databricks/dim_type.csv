@@ -1,0 +1,17 @@
+inspection_type,inspection_type_key
+Suspected Food Poisoning Re-inspection,0
+Complaint,1
+License,2
+Canvass Re-Inspection,3
+Routine,4
+Complaint Re-Inspection,5
+Non-Inspection,6
+Follow-up,7
+NO ENTRY,8
+Canvass,9
+Short Form Complaint,10
+Consultation,11
+License Re-Inspection,12
+ASSESSMENT,13
+Recent Inspection,14
+Suspected Food Poisoning,15
